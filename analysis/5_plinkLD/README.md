@@ -17,10 +17,3 @@ ln -s ../../raw_data_2/UNEAK/distribute/vcftools-filtering/maf01missing50.recode
 --ld-window-r2 0.2
 ```
 ---
-#/lustre/projects/staton/software/plink_1.9/plink \
-#--vcf sub.vcf --make-bed --out test
-/lustre/projects/staton/software/plink_1.9/plink \
---bfile test --r2 \
---ld-window-r2 0.2
-```
----
