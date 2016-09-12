@@ -1,1 +1,7 @@
-analysis of variants in gulf coast tick beetles for Becky.
+Analysis of variants in gulf coast tick beetles for Becky.
+
+###Methods
+
+####Methods
+
+##Methods
