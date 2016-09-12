@@ -1,0 +1,1 @@
+/lustre/projects/staton/software/VCF2Arlequin/VCF2Arlequin.py
