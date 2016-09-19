@@ -31,6 +31,8 @@ cat $f S_fullList.txt | sort | uniq -u > X_$base
 done
 ```
 ---
+####run python code to generate comparisons of SNPs
+```
 module load python/2.7.11
 python zDev_SNV_pooled.py --i maf01missing90.recode.vcf \
 --a S_grassland_2012.txt \
@@ -69,48 +71,5 @@ python zDev_SNV_pooled.py --i maf01missing90.recode.vcf \
 ####just a quick way to summarize counts per comparison
 ```
 for f in `ls 2_*.txt`; do echo $f; cut -f 2,3 -d ' ' $f | sort | uniq -c; done
-```
----
-PATH=$PATH:/lustre/projects/staton/software/vcftools-0.1.14/bin/
-export PERL5LIB=/lustre/projects/staton/software/vcftools-0.1.14/src/perl/
-####testing vcf-contrast
-```
-#A="+"
-#sA=""
-#B="-"
-#sB=""
-#for i in `cat S_grassland_2012.txt`
-#do
-#	A="$A$sA$i"
-#	sA=","
-#done
-#for l in `grep -wvFf S_grassland_2012.txt S_fullList.txt`
-#do
-#	B="$B$sB$l"
-#	sB=","
-#done
-vcf-contrast --help
-#$A $B -n maf01missing90.recode.vcf
-```
----
-PATH=$PATH:/lustre/projects/staton/software/vcftools-0.1.14/bin/
-export PERL5LIB=/lustre/projects/staton/software/vcftools-0.1.14/src/perl/
-####testing vcf-contrast
-```
-A="+"
-sA=""
-B="-"
-sB=""
-for i in `cat S_grassland_2012.txt`
-do
-	A="$A$sA$i"
-	sA=","
-done
-for l in `grep -wvFf S_grassland_2012.txt S_fullList.txt`
-do
-	B="$B$sB$l"
-	sB=","
-done
-vcf-contrast $A $B -f maf01missing90.recode.vcf
 ```
 ---
