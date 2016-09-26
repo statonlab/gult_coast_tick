@@ -15,3 +15,6 @@ The Linkage Disequlibrium Network Analsysis (LDna) package in R was used to iden
 
 ###Comparison of alleles among tick populations
 In order to assess differences among SNVs across groups of populations we combined the SNV calls of each locus of a group to a single call per locus. We then compared these combined calls between groups of interest. The following is a list of each of the comparisons: grassland 2012 vs all, grassland 2013 vs all, grassland vs host, cow vs all, human vs all, Rickettsia (all species) vs all, R. parkeri vs all, and R. andeanae vs all. A script written in python was used to make these comparisons and it can be found here: https://github.com/statonlab/gult_coast_tick/tree/master/analysis/08_privateAlleles. 
+
+###ADMIXUTRE
+Calculation of P and Q values was performed useing the ADMIXTURE software (https://www.genetics.ucla.edu/software/admixture/index.html)
