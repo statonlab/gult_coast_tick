@@ -1,8 +1,9 @@
 library(LDna)
 library(genetics)
 
-# as run on local system
-# change to correct directory
+# change to correct directory containing LDMat.txt
+# LDMat.txt produced by running plink's ld analysis see: 6b_plinkLD on Staton
+# some extra formatting was done to make the file readable by LDna (replace nan with 0.05)
 setwd("~/29_becky")
 
 # read data into table and format into lower tri matrix
@@ -46,6 +47,12 @@ summaryPhi3 <- summaryLDna(ldna, clustersPhi3, LDmat)
 write.csv(as.data.frame(summaryPhi3),
           file="03_summaryPhi3.csv")
 
+### VIEW COC IN NETWORK ###
+png("TEST.png", width = 10, height = 10, units = 'in', res = 100)
+  par(mfcol=c(13,3))
+  plotLDnetwork(ldna, LDmat, option=2, clusters=clustersPhi3, summary=summaryPhi3)
+dev.off()
+
 # file summary
 summaryPhi4 <- summaryLDna(ldna, clustersPhi4, LDmat)
 write.csv(as.data.frame(summaryPhi4),
@@ -61,35 +68,7 @@ sink("04_clustersPhi4.txt", append=FALSE, split=FALSE)
 clustersPhi4
 sink()
 
-# png("05_networkPhi3.png", width = 10, height = 10, units = 'in', res = 100)
-#   par(mfcol = c(8, 3))
-#   summaryPhi3 <- summaryLDna(ldna, clusters = clustersPhi3, LDmat)
-#   plotLDnetwork(ldna, LDmat, option = 2, clusters = clustersPhi3, 
-#                 summary = summaryPhi3, full.network = FALSE, 
-#                 include.parent = FALSE, after.merger = FALSE)
-# dev.off()
-# 
-# setwd("~/29_becky/05_networkPhi4")
-# png("05_networkPhi4.png", width = 10, height = 10, units = 'in', res = 100)
-#   par(mfcol = c(4, 3))
-#   summaryPhi4 <- summaryLDna(ldna, clusters = clustersPhi4, LDmat)
-#   plotLDnetwork(ldna, LDmat, option = 2, clusters = clustersPhi4, 
-#                 summary = summaryPhi4, full.network = FALSE, 
-#                 include.parent = FALSE, after.merger = FALSE)
-# dev.off()
-# 
-# setwd("~/29_becky/05_networkPhi3")
-# png("05_networkPhi3.png", width = 10, height = 10, units = 'in', res = 100)
-# par(mfcol = c(4, 3))
-# summaryPhi4 <- summaryLDna(ldna, clusters = clustersPhi3, LDmat)
-# plotLDnetwork(ldna, LDmat, option = 2, clusters = clustersPhi3, 
-#               summary = summaryPhi4, full.network = FALSE, 
-#               include.parent = FALSE, after.merger = FALSE)
-# dev.off()
-
-
-
-
+# constellations phi3
 library(parallel)
 setwd("~/29_becky/05_networkPhi3")
 fun <- function(x){
@@ -100,13 +79,23 @@ fun <- function(x){
 }
 lapply(1:length(clustersPhi3), fun)
 
+# constellations for phi4
 setwd("~/29_becky/05_networkPhi4")
 fun <- function(x){
   setEPS()
   postscript(paste("05_networkPhi4", x, "eps",  sep="."))
-  plotLDnetwork(ldna, LDmat, option=2, clusters=clustersPhi4[x], summary=summaryPhi4[x,], full.network=FALSE)
+  plotLDnetwork(ldna, LDmat, option=2, clusters=clustersPhi4[x], summary=summaryPhi4[x,] full.network=FALSE)
   dev.off()
 }
 lapply(1:length(clustersPhi4), fun)
 
-
+# write "deathstars" only for phi3
+library(parallel)
+setwd("~/29_becky/06_networkPhi3_deathstar")
+fun <- function(x){
+  setEPS()
+  postscript(paste("06_networkPhi3_deathstar", x, "eps",  sep="."))
+  plotLDnetwork(ldna, LDmat, option=2, clusters=clustersPhi3[x], summary=summaryPhi3[x,], threshold=0.6, full.network=TRUE)
+  dev.off()
+}
+lapply(1:length(clustersPhi3), fun)
